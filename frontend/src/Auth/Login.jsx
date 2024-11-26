@@ -11,6 +11,7 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
+  Spinner,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
@@ -19,6 +20,7 @@ function Login() {
   const [inputs, setInputs] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const toast = useToast();
+  const[loading,setLoading] = useState(false)
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,6 +28,7 @@ function Login() {
   };
 
   const handleSubmit = async () => {
+     setLoading(true)
     const { username, password } = inputs;
 
     // Validate if fields are empty
@@ -40,11 +43,13 @@ function Login() {
         duration: 3000,
         isClosable: true,
       });
+      setLoading(false)
       return;
     }
 
     try {
-      const res = await fetch("/api/users/login", {
+      // const res = await fetch("/api/users/login", {
+      const res = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,6 +90,9 @@ function Login() {
         duration: 3000,
         isClosable: true,
       });
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -136,7 +144,9 @@ function Login() {
             </InputRightElement>
           </InputGroup>
           <Button colorScheme="blue" w="full" onClick={handleSubmit}>
-            Login
+            {
+            loading ? <Spinner animationDuration="0.8s"/> : "Login"
+            }
           </Button>
           <Text textAlign="center">
             Don't have an account?{" "}
