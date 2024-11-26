@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js";
 import connectDB from "./config/db.js";
@@ -10,6 +11,8 @@ const app = express();
 
 // Middleware
 app.use(express.json()); // Parse incoming JSON requests
+app.use(cors({origin:"*"}))
+app.disable("x-powered-by"); //less hacker know about our stack
 
 // Connect to MongoDB
 connectDB();

@@ -89,6 +89,7 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({
       $or: [{ username }, { email: username }],
     });
+    
     if (!user) {
       return res
         .status(400)
@@ -102,7 +103,7 @@ export const loginUser = async (req, res) => {
     }
 
     // Generate a token and set it in a cookie
-    generateToken(res, user._id);
+    generateToken(user._id,res);
 
     // Return the user details (without sensitive information)
     res.status(200).json({
