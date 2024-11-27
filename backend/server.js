@@ -18,6 +18,10 @@ app.disable("x-powered-by"); //less hacker know about our stack
 connectDB();
 
 // Routes
+// default rout
+app.get("/",(req,res) => {
+  return res.status(200).json("Welcome to Bclics API")
+})
 app.use("/api/users", userRoutes); // User-related routes
 
 // Default error handling
