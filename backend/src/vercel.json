@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "name": "bclics-api",
+    "builds": [
+        {
+            "src": "index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/materials/(.*)",
+            "dest": "/uploads/contributions/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/"
+        }
+    ]
+}
