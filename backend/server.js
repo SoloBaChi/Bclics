@@ -20,7 +20,7 @@ connectDB();
 // Routes
 // default rout
 app.get("/",(req,res) => {
-  return res.status(200).json("Welcome to Bclics API")
+  return res.status(200).json({message:"Welcome to Bclics API"})
 })
 
 app.use("/api/users", userRoutes); // User-related routes
