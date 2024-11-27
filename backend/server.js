@@ -22,6 +22,7 @@ connectDB();
 app.get("/",(req,res) => {
   return res.status(200).json("Welcome to Bclics API")
 })
+
 app.use("/api/users", userRoutes); // User-related routes
 
 // Default error handling
@@ -31,6 +32,10 @@ app.use((err, req, res, next) => {
 
 // Start Server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
-);
+
+export const start = () => {
+  app.listen(PORT, () =>
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+  );
+  
+}
