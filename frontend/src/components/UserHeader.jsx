@@ -1,222 +1,211 @@
-import React, { useRef, useState } from "react";
 import {
-  Avatar,
   Box,
-  Button,
-  Center,
   Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Stack,
-  useColorModeValue,
+  Text,
+  VStack,
+  Button,
+  Avatar,
+  IconButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  useDisclosure,
+  Image,
   useToast,
 } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
+import { Portal } from "@chakra-ui/portal";
+import { CgMoreO } from "react-icons/cg";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { Link as RouterLink, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const UpdateProfile = () => {
-  const [inputs, setInputs] = useState({
-    name: "",
-    username: "",
-    email: "",
-    bio: "",
-    password: "",
-  });
-  const fileRef = useRef(null);
-  const [imgUrl, setImgUrl] = useState("");
+const UserHeader = () => {
   const toast = useToast();
+  const [user, setUser] = useState(null); // Stores user data
+  const [following, setFollowing] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Modal control
+  const { id } = useParams(); // Get user ID from route params
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImgUrl(url);
-      // Optional: Store the image file for backend upload
-      setInputs({ ...inputs, avatar: file });
-    }
-  };
+  // useEffect(() => {
+  //   // Fetch user data from backend
+  //   const fetchUser = async () => {
+  //     try {
+  //       const token = localStorage.getItem("token");
+  //       const response = await axios.get(`/api/users/${id}`, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
+  //       setUser(response.data.user);
+  //       setFollowing(response.data.user.following);
+  //     } catch (error) {
+  //       toast({
+  //         status: "error",
+  //         description: error.response?.data?.message || error.message,
+  //         duration: 3000,
+  //         isClosable: true,
+  //       });
+  //     }
+  //   };
 
-      // Append fields to the FormData object
-      Object.keys(inputs).forEach((key) => {
-        if (inputs[key]) formData.append(key, inputs[key]);
-      });
+  //   fetchUser();
+  // }, [id, toast]);
 
-      // API call to update user profile
-      const res = await fetch("/api/users/update", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Replace with actual auth token retrieval method
-        },
-        body: formData,
-      });
+  // const handleFollowToggle = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const response = await axios.post(
+  //       `/api/users/follow`,
+  //       { userId: user._id },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
 
-      const data = await res.json();
+  //     setFollowing(response.data.following);
+  //     toast({
+  //       status: "success",
+  //       description: response.data.message,
+  //       duration: 3000,
+  //       isClosable: true,
+  //     });
+  //   } catch (error) {
+  //     toast({
+  //       status: "error",
+  //       description: "Failed to toggle follow status",
+  //       duration: 3000,
+  //       isClosable: true,
+  //     });
+  //   }
+  // };
 
-      if (!res.ok) {
-        toast({
-          title: "Update failed",
-          description: data.message || "Could not update profile.",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-        });
-        return;
-      }
-
+  const copyURL = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
       toast({
-        title: "Profile updated successfully!",
-        description: "Your changes have been saved.",
         status: "success",
+        description: "Profile link copied",
         duration: 3000,
         isClosable: true,
       });
-
-      // Clear inputs if needed
-      setInputs({
-        name: "",
-        username: "",
-        email: "",
-        bio: "",
-        password: "",
-      });
-    } catch (error) {
-      toast({
-        title: "An error occurred",
-        description: error.message,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
+    });
   };
+
+  // if (!user) return null; // Avoid rendering until user data is fetched
 
   return (
-    <Box p={6} maxWidth="600px" mx="auto">
-      <form onSubmit={handleSubmit}>
-        <Flex align={"center"} justify={"center"} my={6}>
-          <Stack
-            spacing={4}
-            w={"full"}
-            maxW={"md"}
-            bg={useColorModeValue("white", "gray.700")}
-            rounded={"xl"}
-            boxShadow={"lg"}
-            p={6}
-          >
-            {/* Page Title */}
-            <Heading
-              lineHeight={1.1}
-              fontSize={{ base: "2xl", sm: "3xl" }}
-              textAlign="center"
-            >
+    <Flex w="full" alignItems="start" justifyContent="center" px={4}>
+      <Box borderRadius="md" p={6} boxShadow="lg" mt={8}>
+        <VStack gap={4} align="start" w="full">
+          {/* Header with avatar and username */}
+          <Flex w="full" alignItems="center" justifyContent="space-between">
+            <Flex direction="column">
+              <Text fontSize="2xl" fontWeight="bold">
+                {user?.username || "Emezie"}
+              </Text>
+              <Text fontWeight="medium" color="gray.500">
+                {user?.fullName || "just name"}
+              </Text>
+            </Flex>
+            <Avatar
+              name={user?.fullName}
+              src={
+                user?.profileImage?.url ||
+                "https://via.placeholder.com/800x500?text=No+Image"
+              }
+              size="xl"
+              onClick={onOpen} // Open modal on avatar click
+              cursor="pointer"
+            />
+          </Flex>
+
+          {/* Bio section */}
+          <Text fontSize="md" color="gray.500">
+            {user?.bio || "This user has no bio"}
+          </Text>
+
+          {/* Action buttons */}
+          <Flex w="full" gap={4} mt={2}>
+            <Button as={RouterLink} to="/UpdateProfile" w="full" size="sm">
               Update Profile
-            </Heading>
+            </Button>
+            <Button as={RouterLink} to="/FindUsers" w="full" size="sm">
+              Explore Users
+            </Button>
+            <IconButton
+              icon={<HamburgerIcon />}
+              aria-label="Menu"
+              size="sm"
+              as={RouterLink}
+              to="/Settings"
+            />
+          </Flex>
 
-            {/* Avatar Upload */}
-            <FormControl>
-              <Stack direction={["column", "row"]} spacing={6} align="center">
-                <Center>
-                  <Avatar size="xl" boxShadow={"md"} src={imgUrl} />
-                </Center>
-                <Center>
-                  <Button onClick={() => fileRef.current.click()}>
-                    Change Avatar
-                  </Button>
-                  <Input
-                    type="file"
-                    hidden
-                    ref={fileRef}
-                    onChange={handleImageChange}
-                  />
-                </Center>
-              </Stack>
-            </FormControl>
+          {/* Follow button */}
+          <Button
+            colorScheme="blue"
+            w="full"
+            size="sm"
+            // onClick={handleFollowToggle}
+          >
+            {following ? "Unfollow" : "Follow"}
+          </Button>
 
-            {/* Profile Details */}
-            <FormControl>
-              <FormLabel>Full Name</FormLabel>
-              <Input
-                placeholder="Full Name"
-                value={inputs.name}
-                onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
+          {/* Followers count and menu */}
+          <Flex w="full" justifyContent="space-between" alignItems="center">
+            <Text fontWeight="bold">{user?.followers} Followers</Text>
+            <Text fontWeight="bold">{user?.following} Following</Text>
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                icon={<CgMoreO size={20} />}
+                aria-label="Options"
               />
-            </FormControl>
+              <Portal>
+                <MenuList>
+                  <MenuItem onClick={copyURL}>Copy Profile Link</MenuItem>
+                </MenuList>
+              </Portal>
+            </Menu>
+          </Flex>
+        </VStack>
 
-            <FormControl>
-              <FormLabel>Username</FormLabel>
-              <Input
-                placeholder="Username"
-                value={inputs.username}
-                onChange={(e) =>
-                  setInputs({ ...inputs, username: e.target.value })
+        {/* Modal for displaying large image */}
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+          <ModalOverlay />
+          <ModalContent
+            maxW={{ base: "90%", lg: "60%" }}
+            bg="transparent"
+            boxShadow="none"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <ModalCloseButton color="white" size="lg" zIndex={10} />
+            <Box p={4} borderRadius="md">
+              <Image
+                src={
+                  user?.profileImage?.url ||
+                  "https://via.placeholder.com/800x500?text=No+Image"
                 }
+                alt="Large profile image"
+                borderRadius="md"
+                maxH="80vh"
+                maxW="100%"
               />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Email</FormLabel>
-              <Input
-                placeholder="your-email@example.com"
-                value={inputs.email}
-                onChange={(e) =>
-                  setInputs({ ...inputs, email: e.target.value })
-                }
-                type="email"
-              />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Bio</FormLabel>
-              <Input
-                placeholder="Your Bio..."
-                value={inputs.bio}
-                onChange={(e) => setInputs({ ...inputs, bio: e.target.value })}
-              />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Password</FormLabel>
-              <Input
-                placeholder="Password"
-                value={inputs.password}
-                onChange={(e) =>
-                  setInputs({ ...inputs, password: e.target.value })
-                }
-                type="password"
-              />
-            </FormControl>
-
-            {/* Submit and Cancel Buttons */}
-            <Stack spacing={4} direction="row" justify="space-between">
-              <Button
-                w="full"
-                colorScheme="red"
-                onClick={() =>
-                  setInputs({
-                    name: "",
-                    username: "",
-                    email: "",
-                    bio: "",
-                    password: "",
-                  })
-                }
-              >
-                Cancel
-              </Button>
-              <Button type="submit" w="full" colorScheme="green">
-                Submit
-              </Button>
-            </Stack>
-          </Stack>
-        </Flex>
-      </form>
-    </Box>
+            </Box>
+          </ModalContent>
+        </Modal>
+      </Box>
+    </Flex>
   );
 };
 
-export default UpdateProfile;
+export default UserHeader;

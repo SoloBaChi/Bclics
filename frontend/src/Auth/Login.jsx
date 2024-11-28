@@ -48,8 +48,7 @@ function Login() {
     }
 
     try {
-      // const res = await fetch("/api/users/login", {
-      const res = await fetch("http://localhost:5000/api/users/login", {
+       const res = await fetch("https://bclics-app.vercel.app/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -113,7 +112,7 @@ function Login() {
         mx="auto"
         textAlign="center"
       >
-        <Heading as="h2" size="xl" mt={0} mb={5}>
+        <Heading as="h2" size="xl" color="blue.400" mt={0} mb={5}>
           Bclics
         </Heading>
         <Heading as="h3" size="lg" mb={4}>

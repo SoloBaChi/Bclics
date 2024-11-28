@@ -11,6 +11,7 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
+  Spinner,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
@@ -26,6 +27,7 @@ function Signup() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const[loading,setLoading] = useState(false)
 
   const toast = useToast();
   const navigate = useNavigate();
@@ -35,6 +37,7 @@ function Signup() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true)
     // Validate inputs
     const missingFields = [];
     if (!inputs.name) missingFields.push("Full Name");
@@ -51,6 +54,7 @@ function Signup() {
         duration: 4000,
         isClosable: true,
       });
+      setLoading(false)
       return;
     }
 
@@ -66,7 +70,7 @@ function Signup() {
     }
 
     try {
-      const res = await fetch("/api/users/signup", {
+      const res = await fetch("https://bclics-app.vercel.app/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,6 +112,9 @@ function Signup() {
         duration: 4000,
         isClosable: true,
       });
+    }
+    finally{
+    setLoading(false)
     }
   };
 
@@ -188,7 +195,9 @@ function Signup() {
             </InputRightElement>
           </InputGroup>
           <Button colorScheme="blue" w="full" onClick={handleSubmit}>
-            Sign Up
+           {
+            loading ? <Spinner animationDuration="0.8s"/> : "Sign Up"
+           } 
           </Button>
           <Text textAlign="center">
             Have an account?{" "}
