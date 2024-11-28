@@ -14,28 +14,44 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use(cors({origin:"*"}))
 app.disable("x-powered-by"); //less hacker know about our stack
 
-// Connect to MongoDB
-connectDB();
 
 // Routes
 // default rout
 app.get("/",(req,res) => {
-  return res.status(200).json({message:"Welcome to Bclics API"})
+  return res.status(200).json({
+    status:"success",
+    statusCode:200,
+    message:"Welcome to Bclics API"
+  })
 })
 
 app.use("/api/users", userRoutes); // User-related routes
+
+
 
 // Default error handling
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ message: err.message });
 });
 
+
+// NOT FOUND ROUTE
+app.use("*",(req,res) => {
+  res.status(400).json({
+    status:"error",
+    statusCode:400,
+    message:"Page Not Found"
+  })
+})
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 
-export const start = () => {
+export const start = async() => {
+  // Connect to MongoDB
+  await connectDB();
   app.listen(PORT, () =>
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+    console.log(`Server started at http://localhost:${PORT}`)
   );
   
 }

@@ -9,10 +9,6 @@
   ],
   "routes": [
     {
-      "src": "/materials/(.*)",
-      "dest": "/uploads/contributions/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "/"
     }
