@@ -70,7 +70,7 @@ function Signup() {
     }
 
     try {
-      const res = await fetch("https://bclics-app.vercel.app/signup", {
+      const res = await fetch("https://bclics-app.vercel.app/api/users/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
