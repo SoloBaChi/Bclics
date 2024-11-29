@@ -2,17 +2,17 @@ import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 import { v2 as cloudinary } from "cloudinary";
-import mongoose from "mongoose";
+
 
 // Fetch User Profile
 export const getUserProfile = async (req, res) => {
-  const { query } = req.params;
+  const  user  = req.user;
   try {
-    const user = mongoose.Types.ObjectId.isValid(query)
-      ? await User.findById(query).select("-password")
-      : await User.findOne({ username: query }).select("-password");
+    // const user = mongoose.Types.ObjectId.isValid(query)
+    //   ? await User.findById(query).select("-password")
+    //   : await User.findOne({ username: query }).select("-password");
 
-    if (!user) return res.status(404).json({ message: "User not found" });
+    // if (!user) return res.status(404).json({ message: "User not found" });
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -127,6 +127,8 @@ export const loginUser = async (req, res) => {
 export const logoutUser = (req, res) => {
   res.clearCookie("jwt").status(200).json({ message: "Logged out" });
 };
+
+
 
 // Follow/Unfollow
 export const followUnFollowUser = async (req, res) => {

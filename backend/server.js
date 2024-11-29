@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js";
+import cookieParser  from "cookie-parser";
 import connectDB from "./config/db.js";
 
 dotenv.config(); // Load environment variables
@@ -11,7 +12,8 @@ const app = express();
 
 // Middleware
 app.use(express.json()); // Parse incoming JSON requests
-app.use(cors({origin:"*"}))
+app.use(cookieParser());  
+app.use(cors({origin:"*", credentials:true}))
 app.disable("x-powered-by"); //less hacker know about our stack
 
 

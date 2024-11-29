@@ -11,7 +11,8 @@ import authenticate from "../utils/authenticate.js";
 
 const router = express.Router();
 
-router.get("/:query", authenticate, getUserProfile); // Fetch user profile
+// router.get("/:query", authenticate, getUserProfile); // Fetch user profile
+router.get("/dashboard", authenticate, getUserProfile); // Fetch user profile
 router.post("/signup", signupUser); // Signup new user
 router.post("/login", loginUser); // Login user
 router.post("/logout", authenticate, logoutUser); // Logout user
