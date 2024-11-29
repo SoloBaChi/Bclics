@@ -13,7 +13,7 @@ const app = express();
 // Middleware
 app.use(express.json()); // Parse incoming JSON requests
 app.use(cookieParser());  
-app.use(cors({origin:"*", credentials:true}))
+app.use(cors({origin:["https://bclics-six.vercel.app","http://localhost:3000"], credentials:true}))
 app.disable("x-powered-by"); //less hacker know about our stack
 
 
