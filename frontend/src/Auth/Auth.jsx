@@ -19,6 +19,7 @@ import UpdateProfile from "../components/UpdateProfile";
 import Categories from "../components/Categories";
 import FindUsers from "../components/FindUsers";
 import SavePost from "../components/SavePost";
+import ProtectedRoute from "./ProtectedRoute";
 
 function Auth() {
   return (
@@ -29,7 +30,12 @@ function Auth() {
       <Route path="/post" element={<Post />} />
       {/* <Route path="/UserHeader" element={<UserHeader />} /> */}
       <Route path="/Settings" element={<Settings />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/home" 
+      element={
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+       } />
       <Route path="/SearchPage" element={<SearchPage />} />
       <Route path="/AdvertisePage" element={<AdvertisePage />} />
       <Route path="/UserPage" element={<UserPage />} />

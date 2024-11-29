@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSwipeable } from "react-swipeable";
-import { Box, Flex, Text } from "@chakra-ui/react";
 import Following from "../components/Following";
 import Random from "../components/Random";
 import Icons from "../components/Icons";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 const Home = () => {
+
   const [activeIndex, setActiveIndex] = useState(() => {
     const savedIndex = localStorage.getItem("activeIndex");
     return savedIndex !== null ? Number(savedIndex) : 0;
@@ -22,6 +23,9 @@ const Home = () => {
     localStorage.setItem("activeIndex", activeIndex);
   }, [activeIndex]);
 
+  // If still loading, show a loader or nothing
+ 
+
   return (
     <>
       <Box
@@ -31,7 +35,7 @@ const Home = () => {
         overflow="hidden"
         position="relative"
         mx="auto"
-        pb="20" // Added padding-bottom to give space before the Icons component
+        pb="20"
       >
         {/* Centered Header with active tab indication */}
         <Flex
@@ -79,8 +83,8 @@ const Home = () => {
           transform={`translateX(-${activeIndex * 100}vw)`}
           transition="transform 0.4s ease"
           width="200vw"
-          height="calc(100vh - 50px)" // Adjusted height to account for header
-          mt="50px" // Adds space for the header
+          height="calc(100vh - 50px)"
+          mt="50px"
         >
           {/* Random component with header on top */}
           <Box
