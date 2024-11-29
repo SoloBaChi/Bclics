@@ -21,13 +21,15 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../hooks/useAuth";
 
 const UserHeader = () => {
   const toast = useToast();
-  const [user, setUser] = useState(null); // Stores user data
+  // const [user, setUser] = useState(null); // Stores user data
   const [following, setFollowing] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure(); // Modal control
   const { id } = useParams(); // Get user ID from route params
+  const {userData:user} = useAuth();
 
   // useEffect(() => {
   //   // Fetch user data from backend
@@ -111,11 +113,11 @@ const UserHeader = () => {
                 {user?.username || "Emezie"}
               </Text>
               <Text fontWeight="medium" color="gray.500">
-                {user?.fullName || "just name"}
+                {user?.name || "just name"}
               </Text>
             </Flex>
             <Avatar
-              name={user?.fullName}
+              name={user?.lastName}
               src={
                 user?.profileImage?.url ||
                 "https://via.placeholder.com/800x500?text=No+Image"

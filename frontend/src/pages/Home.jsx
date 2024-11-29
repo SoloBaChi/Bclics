@@ -3,7 +3,8 @@ import { useSwipeable } from "react-swipeable";
 import Following from "../components/Following";
 import Random from "../components/Random";
 import Icons from "../components/Icons";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { useAuth } from "../hooks/useAuth";
 
 const Home = () => {
 
@@ -22,6 +23,8 @@ const Home = () => {
   useEffect(() => {
     localStorage.setItem("activeIndex", activeIndex);
   }, [activeIndex]);
+
+  const { userData:data } = useAuth();
 
   // If still loading, show a loader or nothing
  
@@ -77,9 +80,16 @@ const Home = () => {
               )}
             </Box>
           </Flex>
+           
         </Flex>
 
         {/* Content container for Random and Following */}
+        <Box marginBottom="20px" width="100%" display="flex" justifyContent="center" alignItems="center">
+              {/* <Text textAlign="center"></Text> */}
+              <Heading as="h3" size="sm" mb={4}>
+              Welcome Back {data?.name}
+             </Heading>
+            </Box>
         <Flex
           transform={`translateX(-${activeIndex * 100}vw)`}
           transition="transform 0.4s ease"

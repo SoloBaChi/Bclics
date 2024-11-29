@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { Box, Flex, HStack, Skeleton, SkeletonCircle, SkeletonText, Stack, Text } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../hooks/useAuth';
 
 
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
+  const { setUserData } = useAuth();
 
     // Add loading state to manage waiting time for auth check
     const [loading, setLoading] = useState(true);
@@ -14,7 +16,9 @@ const ProtectedRoute = ({ children }) => {
     const checkAuth = async () => {
       try {
         // Check if the user is authenticated by calling a protected API endpoint
-        await axios.get(`https://bclics-app.vercel.app/api/users/dashboard`, { withCredentials: true });
+        const{ data} = await axios.get(`https://bclics-app.vercel.app/api/users/dashboard`, { withCredentials: true });
+        console.log(data)
+        setUserData(data)
         setLoading(false);  // Authentication passed, allow rendering
 
         // If the user is authenticated, allow them to access the route
