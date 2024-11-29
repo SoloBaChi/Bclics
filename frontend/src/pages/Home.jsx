@@ -36,6 +36,7 @@ const Home = () => {
         position="relative"
         mx="auto"
         pb="20"
+        
       >
         {/* Centered Header with active tab indication */}
         <Flex
@@ -72,7 +73,7 @@ const Home = () => {
             >
               <Text fontWeight="bold">Following</Text>
               {activeIndex === 1 && (
-                <Box w="80%" h="3px" bg="blue.300" mt="2" mx="auto" />
+                <Box  w="80%" h="3px" bg="blue.300" mt="2" mx="auto" />
               )}
             </Box>
           </Flex>

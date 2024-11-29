@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { HStack, Skeleton, SkeletonCircle, SkeletonText, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Skeleton, SkeletonCircle, SkeletonText, Stack, Text } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -29,13 +29,23 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading) {
     return(
-      <Stack gap="6" maxW="xs">
-      <HStack width="full">
-        <SkeletonCircle size="10" />
-        <SkeletonText noOfLines={2} />
-      </HStack>
-      <Skeleton height="200px" />
-    </Stack>
+        <Box width="100vw" height="100vh">
+        <Flex
+          justify="center"     // Horizontally center
+          align="center"       // Vertically center
+          height="100%"        // Ensure full height of the container
+        >
+          <Box flexBasis="48%">
+            <Stack gap="6" maxW="xs" mx="auto">
+              <HStack width="full">
+                <SkeletonCircle size="10" />
+                <SkeletonText noOfLines={2} />
+              </HStack>
+              <Skeleton height="200px" />
+            </Stack>
+          </Box>
+          </Flex>
+          </Box>
     )
    // Replace with a spinner or loading indicator
   }
