@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
     const checkAuth = async () => {
       try {
         // Check if the user is authenticated by calling a protected API endpoint
-        await axios.get('https://bclics-app.vercel.app/api/users/dashboard', { withCredentials: true });
+        await axios.get(`https://bclics-app.vercel.app/api/users/dashboard`, { withCredentials: true });
         setLoading(false);  // Authentication passed, allow rendering
 
         // If the user is authenticated, allow them to access the route

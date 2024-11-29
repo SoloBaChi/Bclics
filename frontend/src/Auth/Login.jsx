@@ -54,6 +54,7 @@ function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(inputs),
+        credentials: 'include',  // Ensure cookies are included in the request
       });
 
       const data = await res.json();
