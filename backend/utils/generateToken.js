@@ -10,7 +10,7 @@ const generateToken = (userId, res) => {
     maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
     sameSite: 'None',   // Allow cross-origin
     secure: true ,      // Only over HTTPS
-    path:"/",
+    path:"/login",
     domain:"https://bclics-six.vercel.app/"
   });
 
