@@ -1,15 +1,15 @@
 // App.jsx
-import React from 'react';
-import { Route, Routes } from "react-router-dom";
 
-import Auth from './Auth/Auth';
+import RouteIndex from "./Routes/RouteIndex";
 
 function App() {
   return (
     <>
-   <Routes>
+   {/* <Routes>
       <Route path="/*" element={<Auth />} />
-    </Routes>
+    </Routes> */}
+    <RouteIndex/>
+    
   </>
   );
 }

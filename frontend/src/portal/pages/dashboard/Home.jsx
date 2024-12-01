@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSwipeable } from "react-swipeable";
-import Following from "../components/Following";
-import Random from "../components/Random";
-import Icons from "../components/Icons";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { useAuth } from "../hooks/useAuth";
+import Following from "../../../components/Following";
+import Random from "../../../components/Random";
+import useAuth from "../../../hooks/useAuth";
+import Icons from "../../../components/Icons"
 
 const Home = () => {
 

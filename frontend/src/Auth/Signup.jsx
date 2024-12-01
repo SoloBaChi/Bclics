@@ -201,7 +201,7 @@ function Signup() {
           </Button>
           <Text textAlign="center">
             Have an account?{" "}
-            <Link as={RouterLink} to="/login" color="blue.500">
+            <Link as={RouterLink} to="/" color="blue.500">
               Login
             </Link>
           </Text>

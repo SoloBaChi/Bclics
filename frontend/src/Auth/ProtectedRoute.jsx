@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Box, Flex, HStack, Skeleton, SkeletonCircle, SkeletonText, Stack, Text } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
+
 
 
 const ProtectedRoute = ({ children }) => {
@@ -29,7 +30,7 @@ const ProtectedRoute = ({ children }) => {
     };
 
     checkAuth();
-  }, [navigate]);
+  }, [navigate,]);
 
   if (loading) {
     return(

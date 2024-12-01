@@ -80,7 +80,7 @@ function Login() {
         isClosable: true,
       });
 
-      navigate("/home"); // Redirect to home page on successful login
+      navigate("/dashboard"); // Redirect to home page on successful login
     } catch (error) {
       // Handle unexpected errors
       toast({
