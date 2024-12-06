@@ -109,7 +109,7 @@ function Login() {
         borderRadius="md"
         mx="auto"
         textAlign="center"
-        className="basis-[100%] lg:basis-[48%]"
+        className="basis-[100%] sm:basis-[72%] lg:basis-[48%] xl:basis-[32%]"
       >
         <form onSubmit={handleSubmit}>
           <div className="form-field rounded-md mb-4">
