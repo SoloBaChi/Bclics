@@ -142,8 +142,10 @@ const VerifyForgotPassword = () => {
            ))}
         </div>
         
-        <div className="form-field otp-field">
-          <button className="font-medium text-white text-md border inline-block w-full 
+        <div className="form-field">
+          <button 
+          onClick={navigate("/reset-password")}
+          className="font-medium text-white text-md border inline-block w-full 
             p-2.5 rounded-full bg-blue-500 disabled:bg-blue-100" 
           disabled={!otpInput[otpInput.length - 1]}>
            {
