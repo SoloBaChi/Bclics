@@ -1,9 +1,106 @@
 
 /* Import Tailwind css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+:root {
+    --frame-color:#f00;
+  }
+
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  *::selection {
+    background: #3a8d97;
+    color: #fff;
+  }
+  ::placeholder {
+    font-size: 1rem;
+  }
+ 
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins",sans-serif;
+    background:var(--white-color);
+    color: var(--black-color);
+    counter-reset: count;
+    overflow-x: hidden;
+  }
+  .double {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 4%;
+  }
+  .double > * {
+    flex-basis: 48%;
+  }
+  .form-field {
+    position: relative;
+  }
+  .form-field label {
+    text-transform: capitalize;
+    margin-bottom: 0.45rem;
+    font-weight: 600;
+    display: block;
+  }
+  .form-field input,
+  .form-field textarea,
+  .form-field select{
+    width: 100%;
+    padding:0.45rem;
+    /* border:1px solid var(--frame-color); */
+    box-shadow: none;
+    outline: none;
+    /* font-size:1rem; */
+  }
+  .form-field .select-field{
+  position: relative;
+  }
+  .form-field .select-field::before{
+   content: ">";
+   position:absolute;
+   display:inline-block;
+   font-size:1.4rem;
+   top:12px;
+   right:12px;
+   transform:rotate(90deg);
+   cursor: pointer;
+  }
+
+  .form-field select,
+  input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+  }
+  .form-field .eye-icon-container,
+  .form-field .icon-container {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, 10%);
+    right: 15px;
+    cursor: pointer;
+    display: inline-block;
+    /* width: 25px;
+    height: 25px; */
+    
+  }
+  .form-field .eye-icon-container.active svg path {
+    stroke:var(--primary-btn);
+  }
+  
 
 
 ::-webkit-scrollbar {
@@ -20,3 +117,5 @@
 ::-webkit-scrollbar-thumb {
 	background-color: #555;
 }
+
+

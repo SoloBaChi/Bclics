@@ -108,12 +108,42 @@ function Login() {
         p={6}
         boxShadow="lg"
         borderRadius="md"
-        maxW="400px"
-        w="full"
         mx="auto"
         textAlign="center"
+        className="basis-[100%] lg:basis-[48%]"
       >
-        <Heading as="h2" size="xl" color="blue.400" mt={0} mb={5}>
+        <form onSubmit={handleSubmit}>
+          <div className="form-field rounded-md mb-4">
+            <input type="text" 
+            className="border rounded-md focus:border-2 focus:border-blue-400" 
+            placeholder="Email or Username"
+             />
+          </div>
+          <div className="form-field rounded-md mb-8">
+           <InputGroup>
+           <input type="password" 
+            className="border rounded-md focus:border-2 focus:border-blue-400" 
+            placeholder="Password"
+             />
+              <InputRightElement>
+              <IconButton
+                variant="ghost"
+                icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            </InputRightElement>
+            </InputGroup>
+          </div>
+          <div className="form-field">
+            <button className="font-medium text-white text-md border inline-block w-full 
+            p-2.5 rounded-full bg-blue-500">
+            {
+             loading ? <Spinner animationDuration="0.8s"/> : "Login"
+            }
+              </button>
+          </div>
+        </form>
+        {/* <Heading as="h2" size="xl" color="blue.400" mt={0} mb={5}>
           Bclics
         </Heading>
         <Heading as="h3" size="lg" mb={4}>
@@ -154,7 +184,7 @@ function Login() {
               Signup
             </Link>
           </Text>
-        </VStack>
+        </VStack> */}
       </Box>
     </Box>
   );
