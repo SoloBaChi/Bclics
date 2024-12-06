@@ -50,9 +50,8 @@ html {
     position: relative;
   }
   .form-field label {
-    text-transform: capitalize;
     margin-bottom: 0.45rem;
-    font-weight: 600;
+    font-weight: 400;
     display: block;
   }
   .form-field input,
@@ -97,6 +96,28 @@ html {
   }
   .form-field .eye-icon-container.active svg path {
     stroke:var(--primary-btn);
+  }
+
+
+  .otp-field {
+	display: flex;
+	gap: 10px;
+	margin: 20px auto;
+  }
+  .otp-field input {
+	text-align: center;
+	padding: 0.7rem;
+	font-weight: 600;
+	font-size: 1.2rem;
+	border-radius:8px;
+	height:56px;
+  }
+  .otp-field input:focus {
+	border: 2px solid var(--primary-btn);
+  }
+  .otp-field button.cta-btn:disabled{
+  background: var(--disabled-color);
+  color:var(--white-color);
   }
   
 

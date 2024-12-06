@@ -5,6 +5,8 @@ import Login from "../Auth/Login";
 import Signup from "../Auth/Signup";
 import Home from "../portal/pages/Dashboard/Home";
 import ProtectedRoute from "../Auth/ProtectedRoute";
+import ForgotPassword from "../Auth/ForgotPassword";
+import VerifyForgotPassword from "../Auth/VerifyForgotPassword";
 // import Home from "../portal/pages/Home";
 
 const RouteIndex  =  () => {
@@ -15,6 +17,8 @@ return (
         {/* <Route path="/" element ={<} /> */}
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-forgot-password" element={<VerifyForgotPassword />} />
 
 
         {/* DASHBOARD ROUTES */}

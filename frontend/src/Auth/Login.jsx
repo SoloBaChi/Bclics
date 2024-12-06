@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Button,
-  Input,
-  Text,
-  VStack,
-  Heading,
   useToast,
   InputGroup,
   InputRightElement,
@@ -142,7 +137,7 @@ function Login() {
               </button>
           </div>
           <div className="flex flex-col sm:flex-row justify-between">
-            <Link to="/" className="mb-3 font-medium">Forgot Password</Link>
+            <Link to="/forgot-password" className="mb-3 font-medium">Forgot Password</Link>
             <p>
             Don't have an account?{" "}
             <Link to="/signup" className="text-blue-500 font-medium">
