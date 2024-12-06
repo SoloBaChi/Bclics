@@ -4,7 +4,6 @@ import {
   Button,
   Input,
   Text,
-  Link,
   VStack,
   Heading,
   useToast,
@@ -14,7 +13,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 
 function Login() {
   const [inputs, setInputs] = useState({ username: "", password: "" });
@@ -134,13 +133,22 @@ function Login() {
             </InputRightElement>
             </InputGroup>
           </div>
-          <div className="form-field">
+          <div className="form-field mb-4">
             <button className="font-medium text-white text-md border inline-block w-full 
             p-2.5 rounded-full bg-blue-500">
             {
              loading ? <Spinner animationDuration="0.8s"/> : "Login"
             }
               </button>
+          </div>
+          <div className="flex flex-col sm:flex-row justify-between">
+            <Link to="/" className="mb-3 font-medium">Forgot Password</Link>
+            <p>
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-blue-500 font-medium">
+              Signup
+            </Link>
+            </p>
           </div>
         </form>
         {/* <Heading as="h2" size="xl" color="blue.400" mt={0} mb={5}>

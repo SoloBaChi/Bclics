@@ -34,8 +34,6 @@ html {
     padding: 0;
     margin: 0;
     font-family: "Poppins",sans-serif;
-    background:var(--white-color);
-    color: var(--black-color);
     counter-reset: count;
     overflow-x: hidden;
   }
